@@ -1,4 +1,4 @@
-package tabuleiro;
+package jogo;
 
 //Posição da peça no tabuleiro
 public class Posicao {
