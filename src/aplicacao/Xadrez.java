@@ -1,9 +1,14 @@
 package aplicacao;
 
+import tabuleiro.Posicao;
+
 public class Xadrez {
 
     public static void main(String[] args) {
-        System.out.println("Ola, mundo!");
+        
+        Posicao p = new Posicao(5,2);
+        System.out.println(p);
+        
     }
     
 }
