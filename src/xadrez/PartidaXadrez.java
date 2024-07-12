@@ -59,6 +59,10 @@ public class PartidaXadrez {
         {
             throw new ExcecaoXadrez("Nao existe peca na posicao de origem");
         }
+        if (!tabuleiro.getPeca(posicao).isAlgumMovimentoPossivel())
+        {
+            throw new ExcecaoXadrez("Nao existem movimentos possiveis para a peca escolhida");
+        }
     }
     
     //Passando nas coordenadas de xadrez ao invés de na posição da matriz

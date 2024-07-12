@@ -3,7 +3,9 @@ package xadrez;
 import jogo.Peca;
 import jogo.Tabuleiro;
 
-public class PecaXadrez extends Peca{
+//A implementação do movimento é realizada nas peças específicas
+
+public abstract class PecaXadrez extends Peca{
     
     private Cor cor;
 
