@@ -40,7 +40,11 @@ public class PartidaXadrez {
     private void setup()
     {
         colocarNovaPeca('a', 1, new Torre(Cor.BRANCA, tabuleiro));
-        colocarNovaPeca('e', 8, new Rei(Cor.PRETA, tabuleiro));
+        colocarNovaPeca('h', 1, new Torre(Cor.BRANCA, tabuleiro));
         colocarNovaPeca('e', 1, new Rei(Cor.BRANCA, tabuleiro));
+        
+        colocarNovaPeca('a', 8, new Torre(Cor.PRETA, tabuleiro));
+        colocarNovaPeca('h', 8, new Torre(Cor.PRETA, tabuleiro));
+        colocarNovaPeca('e', 8, new Rei(Cor.PRETA, tabuleiro)); 
     }
 }
