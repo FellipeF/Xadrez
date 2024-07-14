@@ -32,6 +32,15 @@ public class PartidaXadrez {
         return matriz;
     }
     
+    
+    //Método para permitir a impressão na aplicação dos possíveis destinos da peça
+    public boolean[][] movimentosPossiveis(PosicaoXadrez origem)
+    {
+        Posicao p = origem.toPosicao();
+        validarOrigem(p);
+        return tabuleiro.getPeca(p).movimentosPossiveis();
+    }
+    
     public PecaXadrez fazerMovimentoXadrez(PosicaoXadrez origem, PosicaoXadrez destino)
     {
         Posicao orig = origem.toPosicao();
