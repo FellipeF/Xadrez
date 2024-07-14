@@ -16,6 +16,7 @@ public class PartidaXadrez {
     private Cor jogadorAtual;
     private Tabuleiro tabuleiro;
     private boolean check;
+    private boolean checkmate;
     
     private List<Peca> pecasTabuleiro = new ArrayList<>();
     private List<Peca> pecasCapturadas = new ArrayList<>();
@@ -41,6 +42,11 @@ public class PartidaXadrez {
     public boolean getCheck()
     {
         return check;
+    }
+    
+    public boolean getCheckmate()
+    {
+        return checkmate;
     }
     
     public PecaXadrez[][] getPecas()
@@ -181,6 +187,41 @@ public class PartidaXadrez {
         }
         
         return false;
+    }
+    
+    private boolean testarCheckmate(Cor cor)
+    {
+        if (!testarCheck(cor))
+        {
+            return false;
+        }
+        List<Peca> lista = pecasTabuleiro.stream().filter(x -> ((PecaXadrez)x).getCor() == cor).collect(Collectors.toList());
+        
+        for (Peca p: lista)
+        {
+            boolean[][] matriz = p.movimentosPossiveis();
+            for (int i = 0; i < tabuleiro.getLinhas(); i++)
+            {
+                for (int j = 0; j < tabuleiro.getColunas(); j++)
+                {
+                    if (matriz[i][j])
+                    {
+                        Posicao origem = ((PecaXadrez)p).getPosicaoXadrez().toPosicao();
+                        Posicao destino = new Posicao(i, j);
+                        Peca capturada = movimentar(origem, destino);
+                        
+                        //Moveu a peça da origem ao destino. Ainda está em cheque?
+                        boolean testarCheck = testarCheck(cor);
+                        desfazerMovimento(origem, destino, capturada);
+                        if (!testarCheck)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
     
     //Passando nas coordenadas de xadrez ao invés de na posição da matriz

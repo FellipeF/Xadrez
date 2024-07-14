@@ -16,8 +16,9 @@ public class UI {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_RED = "\u001B[31m";         //Peças brancas
     public static final String ANSI_YELLOW = "\u001B[33m";      //Peças pretas
-    
+
     public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
+
     /*
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_GREEN = "\u001B[32m";
@@ -51,19 +52,23 @@ public class UI {
             throw new InputMismatchException("Erro lendo a posicao do xadrez. Valores validos: a1-h8");
         }
     }
-    
-    public static void imprimirPartida(PartidaXadrez partida, List<PecaXadrez> capturadas)
-    {
+
+    public static void imprimirPartida(PartidaXadrez partida, List<PecaXadrez> capturadas) {
         imprimirTabuleiro(partida.getPecas());
         System.out.println("");
         System.out.println("");
         imprimirPecasCapturadas(capturadas);
         System.out.println("");
         System.out.println("Turno: " + partida.getTurno());
-        System.out.println("Esperando movimento da peca " + partida.getJogadorAtual() + "...");
-        if (partida.getCheck())
-        {
-            System.out.println("CHECK!");
+
+        if (!partida.getCheckmate()) {
+            System.out.println("Esperando movimento da peca " + partida.getJogadorAtual() + "...");
+            if (partida.getCheck()) {
+                System.out.println("CHECK!");
+            }
+        } else {
+            System.out.println("CHECKMATE!");
+            System.out.println("Vencedor: " + partida.getJogadorAtual());
         }
     }
 
@@ -90,8 +95,7 @@ public class UI {
     }
 
     private static void imprimirPeca(PecaXadrez peca, boolean colorirFundo) {
-        if (colorirFundo)
-        {
+        if (colorirFundo) {
             System.out.print(ANSI_BLUE_BACKGROUND);
         }
         if (peca == null) {
@@ -105,18 +109,17 @@ public class UI {
         }
         System.out.print(" ");
     }
-    
-    private static void imprimirPecasCapturadas(List<PecaXadrez> capturadas)
-    {
+
+    private static void imprimirPecasCapturadas(List<PecaXadrez> capturadas) {
         List<PecaXadrez> brancas = capturadas.stream().filter(x -> x.getCor() == Cor.BRANCA).collect(Collectors.toList());
         List<PecaXadrez> pretas = capturadas.stream().filter(x -> x.getCor() == Cor.PRETA).collect(Collectors.toList());
-        
+
         System.out.println("Pecas capturadas: ");
         System.out.print("Brancas: ");
         System.out.print(ANSI_RED);
         System.out.println(Arrays.toString(brancas.toArray()));
         System.out.print(ANSI_RESET);
-        
+
         System.out.print("Pretas: ");
         System.out.print(ANSI_YELLOW);
         System.out.println(Arrays.toString(pretas.toArray()));
