@@ -23,6 +23,11 @@ public abstract class PecaXadrez extends Peca{
         return cor;
     }
     
+    public PosicaoXadrez getPosicaoXadrez()
+    {
+        return PosicaoXadrez.fromPosicao(posicao);
+    }
+    
     //Há uma peça do oponente no local aonde está se movendo?
     protected boolean isPecaOponenteLocal(Posicao posicao)
     {
