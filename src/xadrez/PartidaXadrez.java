@@ -7,6 +7,7 @@ import jogo.Peca;
 import jogo.Posicao;
 import jogo.Tabuleiro;
 import xadrez.pecas.Bispo;
+import xadrez.pecas.Cavalo;
 import xadrez.pecas.Peao;
 import xadrez.pecas.Rei;
 import xadrez.pecas.Torre;
@@ -205,7 +206,7 @@ public class PartidaXadrez {
 
     //Inicialização da partida, colocando as peças no tabuleiro
     private void setup() {
-        
+
         //BRANCAS
         colocarNovaPeca('a', 2, new Peao(Cor.BRANCA, tabuleiro));
         colocarNovaPeca('b', 2, new Peao(Cor.BRANCA, tabuleiro));
@@ -215,17 +216,19 @@ public class PartidaXadrez {
         colocarNovaPeca('f', 2, new Peao(Cor.BRANCA, tabuleiro));
         colocarNovaPeca('g', 2, new Peao(Cor.BRANCA, tabuleiro));
         colocarNovaPeca('h', 2, new Peao(Cor.BRANCA, tabuleiro));
-        
+
         colocarNovaPeca('a', 1, new Torre(Cor.BRANCA, tabuleiro));
         colocarNovaPeca('h', 1, new Torre(Cor.BRANCA, tabuleiro));
-        
+
+        colocarNovaPeca('b', 1, new Cavalo(Cor.BRANCA, tabuleiro));
+        colocarNovaPeca('g', 1, new Cavalo(Cor.BRANCA, tabuleiro));
+
         colocarNovaPeca('c', 1, new Bispo(Cor.BRANCA, tabuleiro));
         colocarNovaPeca('f', 1, new Bispo(Cor.BRANCA, tabuleiro));
-        
+
         colocarNovaPeca('e', 1, new Rei(Cor.BRANCA, tabuleiro));
-        
+
         //PRETAS
-        
         colocarNovaPeca('a', 7, new Peao(Cor.PRETA, tabuleiro));
         colocarNovaPeca('b', 7, new Peao(Cor.PRETA, tabuleiro));
         colocarNovaPeca('c', 7, new Peao(Cor.PRETA, tabuleiro));
@@ -238,9 +241,12 @@ public class PartidaXadrez {
         colocarNovaPeca('a', 8, new Torre(Cor.PRETA, tabuleiro));
         colocarNovaPeca('h', 8, new Torre(Cor.PRETA, tabuleiro));
         
+        colocarNovaPeca('b', 8, new Cavalo(Cor.PRETA, tabuleiro));
+        colocarNovaPeca('g', 8, new Cavalo(Cor.PRETA, tabuleiro));
+
         colocarNovaPeca('c', 8, new Bispo(Cor.PRETA, tabuleiro));
         colocarNovaPeca('f', 8, new Bispo(Cor.PRETA, tabuleiro));
-        
+
         colocarNovaPeca('e', 8, new Rei(Cor.PRETA, tabuleiro));
     }
 }
