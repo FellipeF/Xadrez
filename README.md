@@ -1,6 +1,6 @@
 # Xadrez no Terminal
 
-Projeto utilizando os conceitos de  Java Orientado a Objetos para um jogo de xadrez jogado via terminal. Inclui as jogadas especiais: Roque, En Passant e Promoção de um Bispo.
+Projeto utilizando os conceitos de  Java Orientado a Objetos para um jogo de xadrez jogado via terminal. Inclui as jogadas especiais: Roque, En Passant e Promoção de um peão.
 
 ## Como Usar
 
