@@ -15,7 +15,7 @@ public class Xadrez {
 
         Scanner input = new Scanner(System.in);
         PartidaXadrez partida = new PartidaXadrez();
-        List <PecaXadrez> capturadas = new ArrayList<>();
+        List<PecaXadrez> capturadas = new ArrayList<>();
 
         while (!partida.getCheckmate()) {
             try {
@@ -25,7 +25,7 @@ public class Xadrez {
                 System.out.println("");
                 System.out.print("Origem: ");
                 PosicaoXadrez origem = UI.lerPosicaoXadrez(input);
-                
+
                 boolean[][] movimentosPossiveis = partida.movimentosPossiveis(origem);
                 UI.limparTela();
                 UI.imprimirTabuleiro(partida.getPecas(), movimentosPossiveis);
@@ -35,23 +35,24 @@ public class Xadrez {
                 PosicaoXadrez destino = UI.lerPosicaoXadrez(input);
 
                 PecaXadrez pecaCapturada = partida.fazerMovimentoXadrez(origem, destino);
-                
-                if(pecaCapturada != null)
-                {
+
+                if (pecaCapturada != null) {
                     capturadas.add(pecaCapturada);
                 }
-                
-                if (partida.getPromovida() != null)
-                {
+
+                if (partida.getPromovida() != null) {
                     System.out.print("Digite a peca de sua escolha para promocao (B/C/Q/T): ");
-                    String tipo = input.nextLine();
-                    partida.trocarPecaPromovida(tipo.toUpperCase());
+                    String tipo = input.nextLine().toUpperCase();
+                    while (!tipo.equals("B") && !tipo.equals("C") && !tipo.equals("T") && !tipo.equals("Q")) {
+                        System.out.print("Escolha invalida! Digite a peca de sua escolha para promocao (B/C/Q/T): ");
+                        tipo = input.nextLine().toUpperCase();
+                    }
+                    partida.trocarPecaPromovida(tipo);
                 }
             } catch (ExcecaoXadrez e) {
                 System.out.println(e.getMessage());
                 input.nextLine();
-            } catch (InputMismatchException e)
-            {
+            } catch (InputMismatchException e) {
                 System.out.println(e.getMessage());
                 input.nextLine();
             }

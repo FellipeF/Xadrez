@@ -1,6 +1,5 @@
 package xadrez;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -131,7 +130,7 @@ public class PartidaXadrez {
         }
         if (!tipo.equals("B") && !tipo.equals("C") && !tipo.equals("T") && !tipo.equals("Q"))
         {
-            throw new InvalidParameterException("Escolha uma peca valida para substituir o Peao");
+            return promovida;
         }
         Posicao posicao = promovida.getPosicaoXadrez().toPosicao();
         Peca peca = tabuleiro.removerPeca(posicao);
