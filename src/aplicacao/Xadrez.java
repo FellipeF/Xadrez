@@ -40,6 +40,13 @@ public class Xadrez {
                 {
                     capturadas.add(pecaCapturada);
                 }
+                
+                if (partida.getPromovida() != null)
+                {
+                    System.out.print("Digite a peca de sua escolha para promocao (B/C/Q/T): ");
+                    String tipo = input.nextLine();
+                    partida.trocarPecaPromovida(tipo.toUpperCase());
+                }
             } catch (ExcecaoXadrez e) {
                 System.out.println(e.getMessage());
                 input.nextLine();

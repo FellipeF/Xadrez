@@ -1,8 +1,10 @@
 package xadrez;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import jogo.Peca;
 import jogo.Posicao;
 import jogo.Tabuleiro;
@@ -22,6 +24,7 @@ public class PartidaXadrez {
     private boolean check;
     private boolean checkmate;
     private PecaXadrez vulneravelEnPassant;
+    private PecaXadrez promovida;
 
     private List<Peca> pecasTabuleiro = new ArrayList<>();
     private List<Peca> pecasCapturadas = new ArrayList<>();
@@ -51,6 +54,10 @@ public class PartidaXadrez {
 
     public PecaXadrez getVulneravelEnPassant() {
         return vulneravelEnPassant;
+    }
+
+    public PecaXadrez getPromovida() {
+        return promovida;
     }
 
     public PecaXadrez[][] getPecas() {
@@ -87,6 +94,17 @@ public class PartidaXadrez {
 
         PecaXadrez pecaMovimentada = (PecaXadrez) tabuleiro.getPeca(dest);
 
+        //Promoção
+        promovida = null;
+        if(pecaMovimentada instanceof Peao)
+        {
+            if((pecaMovimentada.getCor() == Cor.BRANCA && dest.getLinha() == 0) || (pecaMovimentada.getCor() == Cor.PRETA && dest.getLinha() == 7))
+            {
+                promovida = (PecaXadrez)tabuleiro.getPeca(dest);
+                promovida = trocarPecaPromovida("Q");
+            }
+        }
+        
         check = (testarCheck(verificaOponente(jogadorAtual))) ? true : false;
 
         if (testarCheckmate(verificaOponente(jogadorAtual))) {
@@ -96,13 +114,42 @@ public class PartidaXadrez {
         }
 
         //En Passant
-        if (pecaMovimentada instanceof Peao && (destino.getLinha() == origem.getLinha() - 2) || destino.getLinha() == origem.getLinha() + 2) {
+        if (pecaMovimentada instanceof Peao && (dest.getLinha() == orig.getLinha() - 2) || dest.getLinha() == orig.getLinha() + 2) {
             vulneravelEnPassant = pecaMovimentada;
         } else {
             vulneravelEnPassant = null;
         }
 
         return (PecaXadrez) pecaCapturada;
+    }
+    
+    public PecaXadrez trocarPecaPromovida(String tipo)
+    {
+        if (promovida == null)
+        {
+            throw new IllegalStateException("Nao ha peca para ser promovida");
+        }
+        if (!tipo.equals("B") && !tipo.equals("C") && !tipo.equals("T") && !tipo.equals("Q"))
+        {
+            throw new InvalidParameterException("Escolha uma peca valida para substituir o Peao");
+        }
+        Posicao posicao = promovida.getPosicaoXadrez().toPosicao();
+        Peca peca = tabuleiro.removerPeca(posicao);
+        pecasTabuleiro.remove(peca);
+        
+        PecaXadrez novaPeca = novaPeca(tipo, promovida.getCor());
+        tabuleiro.colocarPeca(novaPeca, posicao);
+        pecasTabuleiro.add(novaPeca);
+        
+        return novaPeca;
+    }
+    
+    private PecaXadrez novaPeca(String tipo, Cor cor)
+    {
+        if(tipo.equals("Q")) return new Rainha(cor, tabuleiro);
+        if(tipo.equals("C")) return new Cavalo(cor, tabuleiro);
+        if(tipo.equals("T")) return new Torre(cor, tabuleiro);
+        return new Bispo(cor, tabuleiro);
     }
 
     private Peca movimentar(Posicao origem, Posicao destino) {
